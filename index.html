@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/logo.png">
+<title>Namita Deshpande</title>
+<meta name="description" content="Namita Deshpande, Senior Design Manager designing healthcare experiences.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500&family=Inter:wght@500;600;700&display=swap">
+<style>
+/* Layout: a single editorial column (max 1000px of statement text) that steps through
+   career chapters, broken up by a 3-up project row and a photo gallery. From the Figma "Desktop" frame. */
+:root {
+  --bg: #ffffff;
+  --fg: #000000;
+  --muted: rgba(0, 0, 0, 0.55);
+  --rule: rgba(0, 0, 0, 0.1);
+  --accent: #2fd8a8;          /* timeline dot */
+  --slot: #f1f3f2;            /* empty image slot */
+  --slot-fg: rgba(0, 0, 0, 0.4);
+  --card-dark: #000000;       /* Samsung card ground */
+
+  --font-statement: "Afacad", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --page-max: 1280px;
+  --gutter: 140px;            /* desktop chapter inset, per Figma */
+  --edge: 64px;               /* header, cards, gallery inset */
+  --statement: 36px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0f0f; --fg: #f2f3f2; --muted: rgba(242, 243, 242, 0.6);
+    --rule: rgba(242, 243, 242, 0.14); --accent: #3fe3b4;
+    --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0f0f; --fg: #f2f3f2; --muted: rgba(242, 243, 242, 0.6);
+  --rule: rgba(242, 243, 242, 0.14); --accent: #3fe3b4;
+  --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.inset-edge { padding-inline: calc(var(--edge) - 16px); }
+.inset-chapter { padding-inline: calc(var(--gutter) - 16px); }
+
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Header ---------- */
+.site-header {
+  display: flex; align-items: center; gap: 18px;
+  padding-block: 24px;
+}
+.logo { width: 40px; height: 40px; flex: none; border-radius: 6px; }
+.site-name {
+  margin: 0; font-weight: 500; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em;
+}
+
+/* ---------- Image slots (filled once the Figma exports are added) ---------- */
+.slot { position: relative; background: var(--slot); overflow: hidden; }
+.slot > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.slot.is-empty::after {
+  content: attr(data-label);
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 12px;
+  font: 500 13px/1.3 var(--font-ui); color: var(--slot-fg); text-align: center;
+}
+.slot.is-empty > img { visibility: hidden; }
+
+/* ---------- Career chapters ---------- */
+.chapter {
+  display: flex; flex-direction: column; gap: 0;
+  padding-block: 80px;
+}
+.company {
+  margin: 0; font-weight: 700; font-size: 16px; line-height: 1.2; letter-spacing: -0.02em;
+}
+.statement {
+  margin: 0; max-width: 999px;
+  font-family: var(--font-statement); font-weight: 400;
+  font-size: var(--statement); line-height: 1.2; letter-spacing: -0.02em;
+  padding-block: 4px 24px;
+  text-wrap: pretty;
+}
+.statement p { margin: 0; }
+.arrow { font-family: var(--font-ui); }
+.timeline { display: flex; gap: 16px; align-items: flex-start; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; margin-top: 3px; }
+.timeline-text { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.path, .years {
+  margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: -0.02em;
+}
+.path { font-weight: 700; }
+.years { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* ---------- Intuitive video row ---------- */
+.videos { padding-block: 0 16px; }
+.video-row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  list-style: none; margin: 0; padding: 0;
+}
+.video {
+  position: relative; display: flex; flex-direction: column; gap: 12px;
+  color: inherit; text-decoration: none; border-radius: 16px;
+}
+.video-thumb {
+  display: block; aspect-ratio: 3 / 2; width: 100%; max-width: 100%; border-radius: 16px;
+  transition: transform 0.25s ease;
+}
+.video-thumb.is-empty { background: linear-gradient(135deg, var(--slot), color-mix(in srgb, var(--accent) 18%, var(--slot))); }
+.play {
+  position: absolute; left: 50%; top: 0; aspect-ratio: 3 / 2; width: 100%;
+  transform: translateX(-50%); display: grid; place-items: center; pointer-events: none;
+}
+.play svg {
+  width: 64px; height: 64px; padding: 18px 16px 18px 20px; border-radius: 50%;
+  fill: #fff; background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.video:hover .video-thumb { transform: translateY(-4px); }
+.video:hover .play svg { transform: translateY(-4px) scale(1.06); background: rgba(0, 0, 0, 0.75); }
+.video-caption { font-weight: 500; font-size: 15px; letter-spacing: -0.01em; color: var(--muted); }
+.video:hover .video-caption { color: var(--fg); }
+.video:hover .out { transform: translate(2px, -2px); color: var(--fg); }
+
+.video-embed {
+  aspect-ratio: 504 / 399; width: 100%; max-width: 100%; border-radius: 16px; overflow: hidden; background: var(--slot);
+}
+.video-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
+li > .video-caption { display: inline-block; margin-top: 12px; text-decoration: none; }
+li > .video-caption:hover { color: var(--fg); }
+li > .video-caption:hover .out { transform: translate(2px, -2px); color: var(--fg); }
+.video-thumb { aspect-ratio: 504 / 399; }
+.play { aspect-ratio: 504 / 399; }
+
+/* ---------- Project cards ---------- */
+.projects { padding-block: 60px 80px; }
+.cards {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+  list-style: none; margin: 0; padding: 0;
+}
+.card { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+.card-media {
+  aspect-ratio: 362.67 / 483; width: 100%; max-width: 100%; border-radius: 16px;
+}
+.card-media.on-dark { background: var(--card-dark); display: grid; place-items: center; }
+.card-media.on-light { background: transparent; display: grid; place-items: center; }
+.card-media.on-light.is-empty { background: var(--slot); }
+.card-media.on-light > img { height: auto; aspect-ratio: 363 / 350; object-fit: cover; }
+
+/* Samsung phone: screen sits inside the device frame */
+.phone { position: relative; width: 55.4%; aspect-ratio: 200.98 / 400; }
+.phone > img { position: absolute; display: block; }
+.phone .screen { left: 7%; top: 2.35%; width: 86.68%; height: 96.48%; object-fit: cover; border-radius: 8% / 4%; }
+.phone .frame { inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.phone.is-empty { border: 2px solid rgba(255,255,255,0.25); border-radius: 18% / 9%; }
+.phone.is-empty::after { color: rgba(255,255,255,0.5); }
+
+.card-link {
+  display: flex; flex-direction: column; gap: inherit; height: 100%;
+  color: inherit; text-decoration: none; border-radius: 16px;
+}
+.card-link .card-media { transition: transform 0.25s ease; }
+.card-link:hover .card-media { transform: translateY(-4px); }
+.out {
+  display: inline-block; font-weight: 500; font-size: 0.8em; color: var(--muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.card-link:hover .out { transform: translate(2px, -2px); color: var(--fg); }
+.card-link:hover .card-title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.card-text { display: flex; flex-direction: column; gap: 8px; }
+.card-title {
+  margin: 0; font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em;
+}
+.card-desc {
+  margin: 0; font-weight: 500; font-size: 18px; line-height: 1.45; letter-spacing: -0.005em; color: var(--muted);
+}
+
+/* ---------- Architecture gallery ---------- */
+.gallery {
+  columns: 3; column-gap: 32px; padding-block: 0 80px;
+}
+.gallery .slot {
+  break-inside: avoid; margin: 0 0 32px; border-radius: 16px; width: 100%; max-width: 100%;
+}
+.gallery .slot > img { height: auto; }
+.gallery .slot.is-empty { aspect-ratio: var(--ratio); }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--rule); }
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+  padding-block: 64px;
+  padding-inline: calc(240px - 16px);
+}
+.cta { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.4; letter-spacing: -0.02em; }
+.social { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+.social a {
+  display: grid; place-items: center; width: 24px; height: 24px; color: var(--fg);
+  opacity: 0.85; transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.social a:hover { opacity: 1; transform: translateY(-2px); }
+.social svg { width: 24px; height: 24px; }
+
+/* ---------- Tablet (641–1024px) ---------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; --edge: 48px; --statement: 30px; }
+  .chapter { padding-block: 64px; }
+  .cards {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(280px, 42%);
+    overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+  }
+  .card { scroll-snap-align: start; }
+  .video-row {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(260px, 44%);
+    overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: thin;
+  }
+  .video-row > li { scroll-snap-align: start; }
+  .gallery { columns: 2; column-gap: 24px; }
+  .gallery .slot { margin-bottom: 24px; }
+  .footer-inner { padding-inline: calc(var(--edge) - 16px); }
+}
+
+/* ---------- Mobile (≤640px) ---------- */
+@media (max-width: 640px) {
+  :root { --gutter: 24px; --edge: 24px; --statement: 26px; }
+  .site-header { padding-block: 16px; gap: 12px; }
+  .logo { width: 32px; height: 32px; }
+  .site-name { font-size: 20px; }
+  .chapter { padding-block: 48px; }
+  .statement { padding-block: 6px 20px; }
+  .projects { padding-block: 32px 56px; }
+  .cards { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); overflow: visible; gap: 48px; }
+  .card { gap: 20px; }
+  .card-media { aspect-ratio: 4 / 4.4; }
+  .phone { width: 46%; }
+  .card-title { font-size: 22px; }
+  .card-desc { font-size: 16px; }
+  .video-row { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); overflow: visible; gap: 28px; }
+  .play svg { width: 56px; height: 56px; padding: 16px 14px 16px 18px; }
+  .gallery { columns: 1; }
+  .gallery .slot { margin-bottom: 16px; border-radius: 12px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; padding-block: 48px; }
+  .cta { font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social a, .card-link .card-media, .out, .video-thumb, .play svg { transition: none; }
+  .social a:hover, .card-link:hover .card-media, .card-link:hover .out,
+  .video:hover .video-thumb, .video:hover .play svg, .video:hover .out { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="site-header inset-edge">
+    <div class="slot logo" data-label="">
+      <img src="assets/logo.png" alt="ND monogram">
+    </div>
+    <p class="site-name">Namita Deshpande</p>
+  </header>
+
+  <main>
+    <section class="chapter inset-chapter" aria-labelledby="c-intuitive">
+      <h2 class="company" id="c-intuitive">Intuitive Surgical</h2>
+      <h3 class="statement">Currently leading a team of 6 designers designing My Intuitive, a digital platform that connects Intuitive products and services, helping customers navigate complex workflows with ease.</h3>
+      <div class="timeline">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="timeline-text">
+          <p class="path">Sr IC <span aria-label="to">→</span> Staff IC <span aria-label="to">→</span> Managing Staff <span aria-label="to">→</span> Senior Design Manager</p>
+          <p class="years">2020 – Present</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos inset-edge" aria-label="My Intuitive videos">
+      <ul class="video-row">
+        <li>
+          <a class="video" href="https://lnkd.in/p/g9huVNHa" target="_blank" rel="noopener" aria-label="Watch video 1 on LinkedIn">
+            <span class="slot video-thumb" data-label="">
+              <img src="assets/video1.jpg" alt="">
+            </span>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+            <span class="video-caption">Watch on LinkedIn <span class="out" aria-hidden="true">↗</span></span>
+          </a>
+        </li>
+        <li>
+          <div class="video-embed">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7511749326990200832?compact=1" title="My Intuitive video 2 on LinkedIn" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <a class="video-caption" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7511749326990200832/" target="_blank" rel="noopener">View post on LinkedIn <span class="out" aria-hidden="true">↗</span></a>
+        </li>
+        <li>
+          <div class="video-embed">
+            <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7516822759054655490?compact=1" title="My Intuitive video 3 on LinkedIn" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <a class="video-caption" href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7516822759054655490/" target="_blank" rel="noopener">View post on LinkedIn <span class="out" aria-hidden="true">↗</span></a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="chapter inset-chapter" aria-labelledby="c-impossible">
+      <h2 class="company" id="c-impossible">Impossible Labs</h2>
+      <h3 class="statement">I worked on a variety of 0 <span class="arrow">→</span> 1 projects as a designer and researcher. A design agency based in Portugal, we were a tightly knit team of designers, where we worked hard, had fun and learnt a lot along the way.</h3>
+      <div class="timeline">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="timeline-text">
+          <p class="path">Jr IC <span aria-label="to">→</span> Sr IC</p>
+          <p class="years">2015 – 2020</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects inset-edge" aria-label="Selected projects">
+      <ul class="cards">
+        <li class="card">
+          <a class="card-link" href="https://navify.roche.com/us/en-us/marketplace/products/navify-clinical-hub-for-tumor-boards" target="_blank" rel="noopener">
+            <div class="slot card-media" data-label="Navify image">
+              <img src="assets/navify.png" alt="navify Clinical Hub for Tumor Boards project artwork">
+            </div>
+            <div class="card-text">
+              <h3 class="card-title">navify Clinical Hub for Tumor Boards <span class="out" aria-hidden="true">↗</span></h3>
+              <p class="card-desc">Software from Roche that helps cancer care teams plan, run and follow up on tumor board meetings, with patient cases, guidelines and trial matching in one place.</p>
+            </div>
+          </a>
+        </li>
+        <li class="card">
+          <a class="card-link" href="https://sra.samsung.com/research-area/digital-health/" target="_blank" rel="noopener">
+            <div class="card-media on-dark">
+              <div class="slot phone" data-label="Phone mockup" style="background:transparent">
+                <img class="screen" src="assets/appscreen.png" alt="">
+                <img class="frame" src="assets/phone.png" alt="Patient symptom-sharing app on a phone">
+              </div>
+            </div>
+            <div class="card-text">
+              <h3 class="card-title">Samsung Research America <span class="out" aria-hidden="true">↗</span></h3>
+              <p class="card-desc">Mobile and wearable apps that let patients share symptoms and sensor data with their care teams, piloted in clinical studies for heart, lung and cancer care.</p>
+            </div>
+          </a>
+        </li>
+        <li class="card">
+          <a class="card-link" href="https://bond-touch.com/products/bond-touch-4-long-distance-bracelet" target="_blank" rel="noopener">
+            <div class="slot card-media on-light" data-label="Bond Touch image">
+              <img src="assets/bond.png" alt="Bond Touch bracelet">
+            </div>
+            <div class="card-text">
+              <h3 class="card-title">Bond Touch <span class="out" aria-hidden="true">↗</span></h3>
+              <p class="card-desc">Connected bracelets for long-distance couples and families. A tap on one bracelet arrives as a gentle vibration and light on the other, wherever they are.</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="chapter inset-chapter" aria-labelledby="c-arch">
+      <h2 class="company" id="c-arch">Architectural Practice</h2>
+      <div class="statement">
+        <p>My career started as an Architect. I grew to be a lead architect in a medium sized architecture firm in Mumbai.</p>
+        <p>This was a transformative time in my life, where I learnt my core business and design skills along with a solid work ethic.</p>
+      </div>
+      <div class="timeline">
+        <span class="dot" aria-hidden="true"></span>
+        <div class="timeline-text">
+          <p class="path">Jr Architect <span aria-label="to">→</span> Associate</p>
+          <p class="years">2007 – 2014</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery inset-edge" aria-label="Architecture work">
+      <figure class="slot" style="--ratio: 655/414" data-label="Architecture photo 1">
+        <img src="assets/arch1.png" alt="Architecture project photo">
+      </figure>
+      <figure class="slot" style="--ratio: 321/233" data-label="Architecture photo 2">
+        <img src="assets/arch2.png" alt="Architecture project photo">
+      </figure>
+      <figure class="slot" style="--ratio: 360/475" data-label="Architecture photo 3">
+        <img src="assets/arch5.png" alt="Architecture project section drawing">
+      </figure>
+      <figure class="slot" style="--ratio: 349/183" data-label="Architecture photo 4">
+        <img src="assets/arch3.png" alt="Architecture project photo">
+      </figure>
+      <figure class="slot" style="--ratio: 546/312" data-label="Architecture photo 5">
+        <img src="assets/arch4.png" alt="Architecture project photo">
+      </figure>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="page">
+    <div class="footer-inner">
+      <p class="cta">Let’s work together</p>
+      <ul class="social" aria-label="Social links">
+        <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        </a></li>
+        <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2ZM8 19H5V9.5h3V19ZM6.5 8.2a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5ZM19 19h-3v-4.6c0-1.1 0-2.6-1.6-2.6s-1.8 1.2-1.8 2.5V19h-3V9.5h2.8v1.3h.1a3.1 3.1 0 0 1 2.8-1.5c3 0 3.6 2 3.6 4.6V19Z"/></svg>
+        </a></li>
+        <li><a href="#" aria-label="X" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg>
+        </a></li>
+        <li><a href="#" aria-label="Email" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6 8.5 7 8.5-7"/></svg>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mark image slots empty until their exported image loads, so the layout holds its shape.
+  document.querySelectorAll('.slot').forEach(function (slot) {
+    var imgs = slot.querySelectorAll('img');
+    function check() {
+      var ok = Array.prototype.every.call(imgs, function (i) { return i.complete && i.naturalWidth > 0; });
+      slot.classList.toggle('is-empty', !ok);
+      var media = slot.closest('.card-media');
+      if (media && media !== slot) media.classList.toggle('is-empty', !ok);
+    }
+    imgs.forEach(function (i) { i.addEventListener('load', check); i.addEventListener('error', check); });
+    check();
+  });
+</script>
+
+</body>
+</html>
