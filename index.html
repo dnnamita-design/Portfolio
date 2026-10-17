@@ -197,11 +197,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .gallery {
   columns: 3; column-gap: 32px; padding-block: 0 80px;
 }
-.gallery .slot {
-  break-inside: avoid; margin: 0 0 32px; border-radius: 16px; width: 100%; max-width: 100%;
+.gallery-item { break-inside: avoid; margin: 0 0 32px; display: flex; flex-direction: column; gap: 10px; }
+.gallery-item img {
+  display: block; width: 100%; height: auto; max-width: 100%; border-radius: 16px; background: var(--slot);
 }
-.gallery .slot > img { height: auto; }
-.gallery .slot.is-empty { aspect-ratio: var(--ratio); }
+.gallery-item figcaption { font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--muted); letter-spacing: -0.005em; }
 
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--rule); }
@@ -230,7 +230,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   }
   .card { scroll-snap-align: start; }
   .gallery { columns: 2; column-gap: 24px; }
-  .gallery .slot { margin-bottom: 24px; }
+  .gallery-item { margin-bottom: 24px; }
   .footer-inner { padding-inline: calc(var(--edge) - 16px); }
 }
 
@@ -248,7 +248,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .card-title { font-size: 22px; }
   .card-desc { font-size: 16px; }
   .gallery { columns: 1; }
-  .gallery .slot { margin-bottom: 16px; border-radius: 12px; }
+  .gallery-item { margin-bottom: 24px; }
+  .gallery-item img { border-radius: 12px; }
   .footer-inner { flex-direction: column; align-items: flex-start; padding-block: 48px; }
   .cta { font-size: 22px; }
 }
@@ -410,20 +411,33 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     </section>
 
     <section class="gallery inset-edge" aria-label="Architecture work">
-      <figure class="slot" style="--ratio: 655/414" data-label="Architecture photo 1">
-        <img src="assets/arch1.png" alt="Architecture project photo">
+      <figure class="gallery-item">
+        <img src="assets/arch-corridor.jpg" width="1400" height="832" loading="lazy" alt="Corridor with lounge seating in the renovated administration building">
+        <figcaption>Administration building renovation, IGIDR, Mumbai</figcaption>
       </figure>
-      <figure class="slot" style="--ratio: 321/233" data-label="Architecture photo 2">
-        <img src="assets/arch2.png" alt="Architecture project photo">
+      <figure class="gallery-item">
+        <img src="assets/arch-vault.jpg" width="881" height="557" loading="lazy" alt="Vaulted walkway at the Indira Gandhi Institute of Development Research">
+        <figcaption>IGIDR campus upgrade, Mumbai</figcaption>
       </figure>
-      <figure class="slot" style="--ratio: 360/475" data-label="Architecture photo 3">
-        <img src="assets/arch5.png" alt="Architecture project section drawing">
+      <figure class="gallery-item">
+        <img src="assets/arch-section.jpg" width="1400" height="667" loading="lazy" alt="Sectional sketch of a three-storey administration block">
+        <figcaption>Administration Block, National Institute of Oceanography, Goa</figcaption>
       </figure>
-      <figure class="slot" style="--ratio: 349/183" data-label="Architecture photo 4">
-        <img src="assets/arch3.png" alt="Architecture project photo">
+      <figure class="gallery-item">
+        <img src="assets/arch-steps.jpg" width="915" height="557" loading="lazy" alt="Red stone steps leading to a colonnaded building on the IGIDR campus">
+        <figcaption>IGIDR campus upgrade, Mumbai</figcaption>
       </figure>
-      <figure class="slot" style="--ratio: 546/312" data-label="Architecture photo 5">
-        <img src="assets/arch4.png" alt="Architecture project photo">
+      <figure class="gallery-item">
+        <img src="assets/arch-atrium.jpg" width="875" height="644" loading="lazy" alt="Double-height atrium with arched window and glass railings">
+        <figcaption>Administration building renovation, IGIDR, Mumbai</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/arch-curve.jpg" width="648" height="557" loading="lazy" alt="Curved residential block with stacked balconies">
+        <figcaption>IGIDR campus upgrade, Mumbai</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="assets/arch-render.jpg" width="1400" height="711" loading="lazy" alt="Render of the administration block facade">
+        <figcaption>Administration Block, National Institute of Oceanography, Goa</figcaption>
       </figure>
     </section>
   </main>
