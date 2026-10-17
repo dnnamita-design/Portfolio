@@ -165,13 +165,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .card-media.on-light.is-empty { background: var(--slot); }
 .card-media.on-light > img { height: auto; aspect-ratio: 363 / 350; object-fit: cover; }
 
-/* Samsung phone: screen sits inside the device frame */
-.phone { position: relative; width: 55.4%; aspect-ratio: 200.98 / 400; }
-.phone > img { position: absolute; display: block; }
-.phone .screen { left: 7%; top: 2.35%; width: 86.68%; height: 96.48%; object-fit: cover; border-radius: 8% / 4%; }
-.phone .frame { inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.phone.is-empty { border: 2px solid rgba(255,255,255,0.25); border-radius: 18% / 9%; }
-.phone.is-empty::after { color: rgba(255,255,255,0.5); }
+/* Samsung phone: app screenshot inside a drawn device frame (white phone on the black card) */
+.phone {
+  position: relative; width: 52%; aspect-ratio: 640 / 1416; box-sizing: content-box;
+  padding: 2.4%; border-radius: 13% / 6%;
+  background: linear-gradient(145deg, #fafafa, #d6d8da);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18), 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.phone::before {
+  /* side button */
+  content: ""; position: absolute; right: -1.6%; top: 22%; width: 1.6%; height: 9%;
+  border-radius: 0 3px 3px 0; background: #cfd1d3;
+}
+.phone .screen { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 10.5% / 4.8%; background: #f7f8fa; }
 
 .card-link {
   display: flex; flex-direction: column; gap: inherit; height: 100%;
@@ -248,7 +254,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .cards { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); overflow: visible; gap: 48px; }
   .card { gap: 20px; }
   .card-media { aspect-ratio: 4 / 4.4; }
-  .phone { width: 46%; }
+  .phone { width: 44%; }
   .card-title { font-size: 22px; }
   .card-desc { font-size: 16px; }
   .gallery { gap: 24px; }
@@ -378,9 +384,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         <li class="card">
           <a class="card-link" href="https://sra.samsung.com/research-area/digital-health/" target="_blank" rel="noopener">
             <div class="card-media on-dark">
-              <div class="slot phone" data-label="Phone mockup" style="background:transparent">
-                <img class="screen" src="assets/appscreen.png" alt="">
-                <img class="frame" src="assets/phone.png" alt="Patient symptom-sharing app on a phone">
+              <div class="phone">
+                <img class="screen" src="assets/samsung-screen.jpg" width="640" height="1416" alt="Patient app home screen showing sleep, heart rate and an upcoming medical history survey">
               </div>
             </div>
             <div class="card-text">
