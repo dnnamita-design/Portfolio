@@ -177,6 +177,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   content: ""; position: absolute; right: -1.6%; top: 22%; width: 1.6%; height: 9%;
   border-radius: 0 3px 3px 0; background: #cfd1d3;
 }
+/* Bond Touch: dark phone beside the bracelet on a pale blue ground */
+.card-media.bond-media {
+  display: flex; align-items: center; justify-content: center; gap: 6%;
+  background: linear-gradient(160deg, #eef4f7, #d7e5ec);
+}
+.bond-media .phone { width: 44%; }
+.bond-media .band { display: block; width: 21%; height: auto; filter: drop-shadow(0 14px 18px rgba(0, 40, 60, 0.28)); }
+.phone.dark {
+  background: linear-gradient(145deg, #3a3d41, #121315);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 18px 36px rgba(0, 40, 60, 0.3);
+}
+.phone.dark::before { background: #2a2c2f; }
 .phone .screen { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 10.5% / 4.8%; background: #f7f8fa; }
 
 .card-link {
@@ -255,6 +267,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .card { gap: 20px; }
   .card-media { aspect-ratio: 4 / 4.4; }
   .phone { width: 44%; }
+  .bond-media .phone { width: 40%; }
+  .bond-media .band { width: 19%; }
   .card-title { font-size: 22px; }
   .card-desc { font-size: 16px; }
   .gallery { gap: 24px; }
@@ -396,8 +410,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         </li>
         <li class="card">
           <a class="card-link" href="https://bond-touch.com/products/bond-touch-4-long-distance-bracelet" target="_blank" rel="noopener">
-            <div class="slot card-media on-light" data-label="Bond Touch image">
-              <img src="assets/bond.png" alt="Bond Touch bracelet">
+            <div class="card-media bond-media">
+              <div class="phone dark" style="aspect-ratio: 268 / 580">
+                <img class="screen" src="assets/bond-app.gif" width="268" height="580" alt="Bond Touch app showing a connected partner and recent touches">
+              </div>
+              <img class="band" src="assets/bond-band.gif" width="160" height="416" alt="Bond Touch bracelet glowing as a touch arrives">
             </div>
             <div class="card-text">
               <h3 class="card-title">Bond Touch <span class="out" aria-hidden="true">↗</span></h3>
