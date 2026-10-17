@@ -485,9 +485,21 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       });
     }
     function leave() { clear(); ['is-on', 'eyes', 'blink', 'expr'].forEach(function (c) { set(c, false); }); }
-    brand.addEventListener('mouseenter', enter);
-    brand.addEventListener('mouseleave', leave);
-    brand.addEventListener('touchstart', function () { logo.classList.contains('is-on') ? leave() : enter(); }, { passive: true });
+    // Autoplay: rest 3s, play, hold 3s once the brow is up, go back, repeat. Hover takes over while the pointer is on it.
+    var auto, hovering = false;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function cycle() {
+      clearTimeout(auto);
+      auto = setTimeout(function () {
+        if (hovering) return cycle();
+        enter();
+        auto = setTimeout(function () { if (!hovering) leave(); cycle(); }, 1400 + 3000);
+      }, 3000);
+    }
+    brand.addEventListener('mouseenter', function () { hovering = true; clearTimeout(auto); enter(); });
+    brand.addEventListener('mouseleave', function () { hovering = false; leave(); if (!reduce) cycle(); });
+    brand.addEventListener('touchstart', function () { clearTimeout(auto); logo.classList.contains('is-on') ? leave() : enter(); if (!reduce) cycle(); }, { passive: true });
+    if (!reduce) cycle();
   })();
 </script>
 
