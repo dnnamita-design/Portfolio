@@ -195,15 +195,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 /* ---------- Architecture gallery ---------- */
 /* Each project gets one justified row: images share a height, widths follow their proportions */
-.gallery { display: flex; flex-direction: column; gap: 56px; padding-block: 0 80px; }
-.gallery-group { display: flex; gap: 16px; align-items: flex-start; }
+/* Earlier work: a smaller glimpse, aligned with the chapter text rather than full width */
+.gallery { display: flex; flex-direction: column; gap: 32px; padding-block: 0 80px; max-width: calc(720px + 2 * (var(--gutter) - 16px)); }
+.gallery-group { display: flex; gap: 10px; align-items: flex-start; }
 .gallery-group img {
   display: block; flex: var(--r) 1 0; min-width: 0; width: 0; height: auto;
-  aspect-ratio: var(--r); object-fit: cover; border-radius: 16px; background: var(--slot);
+  aspect-ratio: var(--r); object-fit: cover; border-radius: 10px; background: var(--slot);
 }
 /* IGIDR: tall site plan beside the render and photo stacked */
-.gallery-group.split { display: grid; grid-template-columns: 0.764fr 1fr; gap: 16px; align-items: stretch; }
-.gallery-group.split .stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.gallery-group.split { display: grid; grid-template-columns: 0.764fr 1fr; gap: 10px; align-items: stretch; }
+.gallery-group.split .stack { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .gallery-group.split .stack img { width: 100%; flex: none; }
 .gallery-group.split .tall { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: center top; }
 
@@ -233,10 +234,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     -webkit-overflow-scrolling: touch; scrollbar-width: thin;
   }
   .card { scroll-snap-align: start; }
-  .gallery { gap: 40px; }
-  .gallery-group { gap: 12px; }
-  .gallery-group img { border-radius: 12px; }
-  .gallery-group.split, .gallery-group.split .stack { gap: 12px; }
+  .gallery { gap: 28px; }
   .footer-inner { padding-inline: calc(var(--edge) - 16px); }
 }
 
@@ -253,7 +251,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .phone { width: 46%; }
   .card-title { font-size: 22px; }
   .card-desc { font-size: 16px; }
-  .gallery { gap: 32px; }
+  .gallery { gap: 24px; }
   .gallery-group { flex-direction: column; gap: 10px; }
   .gallery-group img { width: 100%; flex: none; }
   .gallery-group.split { display: flex; }
@@ -419,7 +417,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       </div>
     </section>
 
-    <section class="gallery inset-edge" aria-label="Architecture work">
+    <section class="gallery inset-chapter" aria-label="Architecture work">
       <div class="gallery-group split" role="group" aria-label="Indira Gandhi Institute of Development Research, Mumbai">
         <img class="tall" src="assets/igidr-siteplan.jpg" width="1290" height="1600" loading="lazy" alt="Site plan of the IGIDR campus with its numbered academic and residential blocks">
         <div class="stack">
