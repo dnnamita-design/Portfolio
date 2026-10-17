@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='32 56 136 110'%3E%3Cg fill='none' stroke='%231A1A1A' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M40 150 V120 A30 30 0 0 1 100 120'/%3E%3Ccircle cx='130' cy='120' r='30'/%3E%3Cpath d='M160 77.4 L160 150'/%3E%3C/g%3E%3C/svg%3E">
 <title>Namita Deshpande</title>
 <meta name="description" content="Namita Deshpande, Senior Design Manager designing healthcare experiences.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +21,7 @@
   --slot: #f1f3f2;            /* empty image slot */
   --slot-fg: rgba(0, 0, 0, 0.4);
   --card-dark: #000000;       /* Samsung card ground */
+  --logo-accent: #0F8B8D;     /* logo lens tint */
 
   --font-statement: "Afacad", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -34,14 +35,14 @@
   :root:not([data-theme="light"]) {
     --bg: #0e0f0f; --fg: #f2f3f2; --muted: rgba(242, 243, 242, 0.6);
     --rule: rgba(242, 243, 242, 0.14); --accent: #3fe3b4;
-    --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000;
+    --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000; --logo-accent: #3FD0C9;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e0f0f; --fg: #f2f3f2; --muted: rgba(242, 243, 242, 0.6);
   --rule: rgba(242, 243, 242, 0.14); --accent: #3fe3b4;
-  --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000;
+  --slot: #1b1d1c; --slot-fg: rgba(242, 243, 242, 0.45); --card-dark: #000000; --logo-accent: #3FD0C9;
   color-scheme: dark;
 }
 
@@ -74,7 +75,26 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   display: flex; align-items: center; gap: 18px;
   padding-block: 24px;
 }
-.logo { width: 40px; height: 40px; flex: none; border-radius: 6px; }
+.logo { width: 58px; height: 40px; flex: none; display: block; color: var(--fg); }
+.logo svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* 9b logo: "nd" at rest; on hover the n closes into a lens, lenses tint, eyes blink, one brow lifts */
+.lg-ink, .lg-brows { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.lg-ink { stroke-width: 9; }
+.lg-brows { stroke-width: 5.4; opacity: 0; transition: opacity 200ms ease; }
+.lg-tint { fill: var(--logo-accent); opacity: 0; transition: opacity 420ms ease 0ms; }
+.lg-lens { stroke-dasharray: 100 200; stroke-dashoffset: 150; transition: stroke-dashoffset 480ms cubic-bezier(.4,0,.2,1) 200ms; }
+.lg-pupil {
+  fill: currentColor; opacity: 0; transform-box: fill-box; transform-origin: center;
+  transform: scale(0.2, 0.2); transition: transform 150ms ease, opacity 160ms ease;
+}
+.lg-brow-l, .lg-brow-r { transform-box: fill-box; transform-origin: center; transition: transform 260ms cubic-bezier(.3,1.4,.5,1); }
+.logo.is-on .lg-lens { stroke-dashoffset: 0; transition-delay: 0ms; }
+.logo.is-on .lg-tint { opacity: 0.22; transition-delay: 300ms; }
+.logo.eyes .lg-pupil { opacity: 1; transform: scale(1, 1); }
+.logo.eyes.blink .lg-pupil { transform: scale(1, 0.1); }
+.logo.eyes .lg-brows { opacity: 1; }
+.logo.expr .lg-brow-l { transform: translate(0, 2px); }
+.logo.expr .lg-brow-r { transform: translate(1px, -9px) rotate(-8deg); }
 .site-name {
   margin: 0; font-weight: 500; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em;
 }
@@ -217,7 +237,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 @media (max-width: 640px) {
   :root { --gutter: 24px; --edge: 24px; --statement: 26px; }
   .site-header { padding-block: 16px; gap: 12px; }
-  .logo { width: 32px; height: 32px; }
+  .logo { width: 46px; height: 32px; }
   .site-name { font-size: 20px; }
   .chapter { padding-block: 48px; }
   .statement { padding-block: 6px 20px; }
@@ -235,6 +255,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .logo *, .logo { transition: none !important; }
   .social a, .card-link .card-media, .out, .play svg { transition: none; }
   .social a:hover, .card-link:hover .card-media, .card-link:hover .out,
   .card-link:hover .play svg { transform: none; }
@@ -244,10 +265,27 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 <body>
 
 <div class="page">
-  <header class="site-header inset-edge">
-    <div class="slot logo" data-label="">
-      <img src="assets/logo.png" alt="ND monogram">
-    </div>
+  <header class="site-header inset-edge" id="brand">
+    <span class="logo" id="logo" aria-hidden="true">
+      <svg viewBox="32 64 136 94" focusable="false">
+        <g class="lg-tint">
+          <circle cx="70" cy="120" r="30"></circle>
+          <circle cx="130" cy="120" r="30"></circle>
+        </g>
+        <g class="lg-ink">
+          <path d="M40 150 V120 A30 30 0 0 1 100 120"></path>
+          <circle cx="130" cy="120" r="30"></circle>
+          <path d="M160 77.4 L160 150"></path>
+          <path class="lg-lens" d="M100 120 A30 30 0 0 1 40 120" pathLength="100"></path>
+        </g>
+        <circle class="lg-pupil" cx="70" cy="122" r="8.5"></circle>
+        <circle class="lg-pupil" cx="130" cy="122" r="8.5"></circle>
+        <g class="lg-brows">
+          <path class="lg-brow-l" d="M58 78 Q70 75 82 78"></path>
+          <path class="lg-brow-r" d="M118 78 Q130 72 142 76"></path>
+        </g>
+      </svg>
+    </span>
     <p class="site-name">Namita Deshpande</p>
   </header>
 
@@ -428,6 +466,29 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     imgs.forEach(function (i) { i.addEventListener('load', check); i.addEventListener('error', check); });
     check();
   });
+  // Logo 9b hover sequence: glasses on, eyes appear, blink, then one brow up (blinks every 3.2s while hovered)
+  (function () {
+    var logo = document.getElementById('logo'), brand = document.getElementById('brand');
+    if (!logo || !brand) return;
+    var timers = [], blinker;
+    function clear() { timers.forEach(clearTimeout); timers = []; clearInterval(blinker); }
+    function at(ms, f) { timers.push(setTimeout(f, ms)); }
+    function set(c, on) { logo.classList.toggle(c, on); }
+    function enter() {
+      clear(); set('is-on', true);
+      at(450, function () { set('eyes', true); });
+      at(950, function () { set('blink', true); });
+      at(1090, function () { set('blink', false); });
+      at(1400, function () {
+        set('expr', true);
+        blinker = setInterval(function () { set('blink', true); timers.push(setTimeout(function () { set('blink', false); }, 130)); }, 3200);
+      });
+    }
+    function leave() { clear(); ['is-on', 'eyes', 'blink', 'expr'].forEach(function (c) { set(c, false); }); }
+    brand.addEventListener('mouseenter', enter);
+    brand.addEventListener('mouseleave', leave);
+    brand.addEventListener('touchstart', function () { logo.classList.contains('is-on') ? leave() : enter(); }, { passive: true });
+  })();
 </script>
 
 </body>
